@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
@@ -25,8 +26,8 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource(properties = {
         "gaia.url=https://gaia-app.io",
-        "gaia.runner.username=gaia-runner",
-        "gaia.runner.password=gaia-runner-password",
+        "gaia.runner.api.username=gaia-runner",
+        "gaia.runner.api.password=gaia-runner-password",
 })
 class RunnerIT {
 
@@ -36,26 +37,26 @@ class RunnerIT {
     @Test
     void runnerShouldRunJobs(){
         // given
-        MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
+        MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).ignoreExpectOrder(true).build();
 
         server.expect(ExpectedCount.manyTimes(), requestTo("https://gaia-app.io/api/runner/steps/request"))
-                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6cGFzc3dvcmQ="))
+                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6Z2FpYS1ydW5uZXItcGFzc3dvcmQ="))
                 .andRespond(MockRestResponseCreators.withSuccess(new ClassPathResource("/rest/step-request.json"), MediaType.APPLICATION_JSON));
 
         server.expect(requestTo("https://gaia-app.io/api/runner/steps/12/start"))
                 .andExpect(MockRestRequestMatchers.method(HttpMethod.PUT))
-                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6cGFzc3dvcmQ="))
+                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6Z2FpYS1ydW5uZXItcGFzc3dvcmQ="))
                 .andRespond(MockRestResponseCreators.withSuccess());
 
         server.expect(requestTo("https://gaia-app.io/api/runner/steps/12/logs"))
                 .andExpect(MockRestRequestMatchers.method(HttpMethod.PUT))
-                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6cGFzc3dvcmQ="))
+                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6Z2FpYS1ydW5uZXItcGFzc3dvcmQ="))
                 .andExpect(MockRestRequestMatchers.content().json("[gaia] using image hashicorp/terraform:latest\n"))
                 .andRespond(MockRestResponseCreators.withSuccess());
 
         server.expect(requestTo("https://gaia-app.io/api/runner/steps/12/status"))
                 .andExpect(MockRestRequestMatchers.method(HttpMethod.PUT))
-                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6cGFzc3dvcmQ="))
+                .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6Z2FpYS1ydW5uZXItcGFzc3dvcmQ="))
                 .andExpect(MockRestRequestMatchers.content().json("0"))
                 .andRespond(MockRestResponseCreators.withSuccess());
 

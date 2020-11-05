@@ -30,9 +30,9 @@ public class RunnerConfiguration {
     }
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate(RunnerConfigurationProperties.RunnerApiProperties apiProperties) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setInterceptors(List.of(new BasicAuthenticationInterceptor("gaia-runner","password")));
+        restTemplate.setInterceptors(List.of(new BasicAuthenticationInterceptor(apiProperties.getUsername(), apiProperties.getPassword())));
         return restTemplate;
     }
 
