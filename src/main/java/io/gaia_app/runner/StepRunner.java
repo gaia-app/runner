@@ -29,25 +29,25 @@ public class StepRunner {
 
     @Async
     public void runStep(RunnerStep runnerStep) {
-        var script = runnerStep.getScript();
-        var step = runnerStep.getStep();
-        var env = runnerStep.getEnv();
+        var stepId = runnerStep.getId();
         var image = runnerStep.getImage();
+        var script = runnerStep.getScript();
+        var env = runnerStep.getEnv();
 
         // tell gaia that the job starts
-        this.restTemplate.put(gaiaUrl+ API_RUNNER_STEPS +step.getId()+"/start", null);
+        this.restTemplate.put(gaiaUrl+ API_RUNNER_STEPS +stepId+"/start", null);
 
-        LOG.info("Starting step {} execution.", step.getId());
+        LOG.info("Starting step {} execution.", stepId);
 
         // configure a logger to ship logs back to gaia
-        StepLogger logger = log -> this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+step.getId()+"/logs", log);
+        StepLogger logger = log -> this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+stepId+"/logs", log);
 
         var result = dockerRunner.runJobStepInContainer(image, logger, script, env);
 
-        LOG.info("Finished step {} execution with result code {}.", step.getId(), result);
+        LOG.info("Finished step {} execution with result code {}.", stepId, result);
         LOG.info("Sending result.");
 
         // sending final result code
-        this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+step.getId()+"/status", result);
+        this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+stepId+"/end", result);
     }
 }

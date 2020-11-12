@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.client.ExpectedCount;
@@ -54,7 +53,7 @@ class RunnerIT {
                 .andExpect(MockRestRequestMatchers.content().json("[gaia] using image hashicorp/terraform:latest\n"))
                 .andRespond(MockRestResponseCreators.withSuccess());
 
-        server.expect(requestTo("https://gaia-app.io/api/runner/steps/12/status"))
+        server.expect(requestTo("https://gaia-app.io/api/runner/steps/12/end"))
                 .andExpect(MockRestRequestMatchers.method(HttpMethod.PUT))
                 .andExpect(MockRestRequestMatchers.header("Authorization", "Basic Z2FpYS1ydW5uZXI6Z2FpYS1ydW5uZXItcGFzc3dvcmQ="))
                 .andExpect(MockRestRequestMatchers.content().json("0"))

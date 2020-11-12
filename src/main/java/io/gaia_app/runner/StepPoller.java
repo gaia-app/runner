@@ -39,7 +39,7 @@ public class StepPoller {
                 return;
             }
             // job is run asynchronously
-            logger.info("Step found {}. Running.", runnerJob.getStep().getId());
+            logger.info("Step found {}. Running.", runnerJob.getId());
             stepRunner.runStep(runnerJob);
         }
         catch(HttpClientErrorException.NotFound e){

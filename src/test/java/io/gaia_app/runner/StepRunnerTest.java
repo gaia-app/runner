@@ -1,7 +1,6 @@
 package io.gaia_app.runner;
 
 import io.gaia_app.runner.docker.DockerRunner;
-import io.gaia_app.stacks.bo.Step;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -35,7 +33,7 @@ class StepRunnerTest {
         // given
         var image = "hashicorp/terraform:0.13.0";
         var script = "echo 'Hello'";
-        var runnerStep = new RunnerStep(new Step(), image, script, List.of());
+        var runnerStep = new RunnerStep("12", image, script, List.of());
 
         // when
         stepRunner.runStep(runnerStep);
@@ -49,9 +47,7 @@ class StepRunnerTest {
         // given
         var image = "hashicorp/terraform:0.13.0";
         var script = "echo 'Hello'";
-        var step = new Step();
-        step.setId("12");
-        var runnerStep = new RunnerStep(step, image, script, List.of());
+        var runnerStep = new RunnerStep("12", image, script, List.of());
 
         ReflectionTestUtils.setField(stepRunner, "gaiaUrl", "http://localhost:8080");
 
@@ -62,6 +58,6 @@ class StepRunnerTest {
 
         // then
         verify(restTemplate).put("http://localhost:8080/api/runner/steps/12/start", null);
-        verify(restTemplate).put("http://localhost:8080/api/runner/steps/12/status", 2);
+        verify(restTemplate).put("http://localhost:8080/api/runner/steps/12/end", 2);
     }
 }

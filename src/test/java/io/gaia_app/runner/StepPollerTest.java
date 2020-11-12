@@ -1,11 +1,9 @@
 package io.gaia_app.runner;
 
-import io.gaia_app.stacks.bo.Step;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -14,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +31,7 @@ class StepPollerTest {
         // given
         ReflectionTestUtils.setField(stepPoller, "gaiaUrl", "http://localhost:8080");
 
-        var step = new RunnerStep(new Step(), "hashicorp/terraform:latest", "echo 'Hello'", List.of());
+        var step = new RunnerStep("12", "hashicorp/terraform:latest", "echo 'Hello'", List.of());
         when(restTemplate.getForObject("http://localhost:8080/api/runner/steps/request", RunnerStep.class)).thenReturn(step);
 
         // when

@@ -11,7 +11,6 @@ import io.gaia_app.runner.StepLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,9 +29,6 @@ public class DockerRunner {
     private static final Logger LOG = LoggerFactory.getLogger(DockerRunner.class);
 
     private DockerClient dockerClient;
-
-    @Value("${gaia.url}")
-    private String gaiaUrl;
 
     @Autowired
     public DockerRunner(DockerClient dockerClient) {

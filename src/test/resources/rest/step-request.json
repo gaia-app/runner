@@ -1,8 +1,6 @@
 {
   "script": "set -e\necho '[gaia] using image hashicorp/terraform:latest'\nexit 0\n",
-  "step": {
-    "id": "12"
-  },
+  "id": "12",
   "env": [
     "FAKE_ACCESS_KEY=fake-access-key"
   ],
