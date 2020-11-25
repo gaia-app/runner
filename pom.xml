@@ -40,7 +40,7 @@
     </ciManagement>
 
     <properties>
-        <docker-java.version>3.2.5</docker-java.version>
+        <docker-java.version>3.2.6</docker-java.version>
         <jacoco.version>0.8.5</jacoco.version>
         <java.version>11</java.version>
         <kotlin.version>1.4.10</kotlin.version>
