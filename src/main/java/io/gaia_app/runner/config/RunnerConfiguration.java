@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 @Configuration
-@EnableScheduling
 @EnableAsync
 @EnableConfigurationProperties
 public class RunnerConfiguration {
