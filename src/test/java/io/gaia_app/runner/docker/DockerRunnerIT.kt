@@ -2,7 +2,6 @@ package io.gaia_app.runner.docker
 
 import io.gaia_app.runner.StepLogger
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Assert
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -40,7 +39,7 @@ class DockerRunnerIT {
     fun `runContainerForJob() should return the script exit code`() {
         val script = "exit 5"
 
-        Assert.assertEquals(5, dockerRunner.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
+        assertEquals(5, dockerRunner.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
     }
 
     @Test
