@@ -20,7 +20,12 @@ jobs:
       - name: Create test namespace
         run: kubectl create ns gaia-runner
       - name: Run Maven tests
-        run: mvn --batch-mode org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report sonar:sonar
+        run: mvn --batch-mode org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Sonar Analysis
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        run: mvn sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
