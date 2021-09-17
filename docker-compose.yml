@@ -3,6 +3,7 @@ services:
     gaia:
         build: .
         image: gaia-runner
+        network_mode:"host"
         environment:
             - "GAIA_URL=http://localhost:8080"
             - "GAIA_RUNNER_API_PASSWORD=123456"
