@@ -1,6 +1,5 @@
 package io.gaia_app.runner;
 
-import io.gaia_app.runner.docker.DockerExecutor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +22,7 @@ class StepRunnerTest {
     private StepRunner stepRunner;
 
     @Mock
-    private DockerExecutor dockerExecutor;
+    private Executor executor;
 
     @Mock
     private RestTemplate restTemplate;
@@ -39,7 +38,7 @@ class StepRunnerTest {
         stepRunner.runStep(runnerStep);
 
         // then
-        verify(dockerExecutor).runJobStepInContainer(eq(image), any(StepLogger.class), eq(script), eq(List.of()));
+        verify(executor).executeJobStep(eq(image), any(StepLogger.class), eq(script), eq(List.of()));
     }
 
     @Test
@@ -51,7 +50,7 @@ class StepRunnerTest {
 
         ReflectionTestUtils.setField(stepRunner, "gaiaUrl", "http://localhost:8080");
 
-        when(dockerExecutor.runJobStepInContainer(eq(image), any(StepLogger.class), eq(script), eq(List.of()))).thenReturn(2);
+        when(executor.executeJobStep(eq(image), any(StepLogger.class), eq(script), eq(List.of()))).thenReturn(2);
 
         // when
         stepRunner.runStep(runnerStep);

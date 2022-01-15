@@ -7,6 +7,7 @@ import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Volume;
+import io.gaia_app.runner.Executor;
 import io.gaia_app.runner.StepLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Service to run docker container
  */
 @Service
-public class DockerExecutor {
+public class DockerExecutor implements Executor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DockerExecutor.class);
 
@@ -35,7 +36,8 @@ public class DockerExecutor {
         this.dockerClient = dockerClient;
     }
 
-    public int runJobStepInContainer(String image, StepLogger logger, String script, List<String> jobEnv) {
+    @Override
+    public int executeJobStep(String image, StepLogger logger, String script, List<String> jobEnv) {
         try {
             var env = new ArrayList<String>();
             env.add("TF_IN_AUTOMATION=true");

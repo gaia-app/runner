@@ -1,6 +1,5 @@
 package io.gaia_app.runner;
 
-import io.gaia_app.runner.docker.DockerExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,15 +14,15 @@ public class StepRunner {
 
     private static final String API_RUNNER_STEPS = "/api/runner/steps/";
 
-    private final DockerExecutor dockerExecutor;
+    private final Executor executor;
 
     private final RestTemplate restTemplate;
 
     @Value("${gaia.url}")
     private String gaiaUrl;
 
-    public StepRunner(DockerExecutor dockerExecutor, RestTemplate restTemplate) {
-        this.dockerExecutor = dockerExecutor;
+    public StepRunner(Executor executor, RestTemplate restTemplate) {
+        this.executor = executor;
         this.restTemplate = restTemplate;
     }
 
@@ -42,7 +41,7 @@ public class StepRunner {
         // configure a logger to ship logs back to gaia
         StepLogger logger = log -> this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+stepId+"/logs", log);
 
-        var result = dockerExecutor.runJobStepInContainer(image, logger, script, env);
+        var result = executor.executeJobStep(image, logger, script, env);
 
         LOG.info("Finished step {} execution with result code {}.", stepId, result);
         LOG.info("Sending result.");
