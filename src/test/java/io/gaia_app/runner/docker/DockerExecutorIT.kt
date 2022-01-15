@@ -9,13 +9,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
 
-@SpringBootTest(classes = [DockerRunner::class, DockerJavaClientConfig::class, DockerConfigurationProperties::class])
+@SpringBootTest(classes = [DockerExecutor::class, DockerJavaClientConfig::class, DockerConfigurationProperties::class])
 @EnableConfigurationProperties
 @TestPropertySource(properties = ["gaia.dockerDaemonUrl=unix:///var/run/docker.sock"])
-class DockerRunnerIT {
+class DockerExecutorIT {
 
     @Autowired
-    private lateinit var dockerRunner: DockerRunner
+    private lateinit var dockerExecutor: DockerExecutor
 
     private val image = "hashicorp/terraform:0.13.0"
 
@@ -25,21 +25,21 @@ class DockerRunnerIT {
     fun `runContainerForJob() should work with a simple script`() {
         val script = "echo 'Hello World'; exit 0;"
 
-        assertEquals(0, dockerRunner.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
+        assertEquals(0, dockerExecutor.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
     }
 
     @Test
     fun `runContainerForJob() should stop work with a simple script`() {
         val script = "set -e; echo 'Hello World'; false; exit 0;"
 
-        assertEquals(1, dockerRunner.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
+        assertEquals(1, dockerExecutor.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
     }
 
     @Test
     fun `runContainerForJob() should return the script exit code`() {
         val script = "exit 5"
 
-        assertEquals(5, dockerRunner.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
+        assertEquals(5, dockerExecutor.runJobStepInContainer(image, printlnLogger, script, listOf()).toLong())
     }
 
     @Test
@@ -49,7 +49,7 @@ class DockerRunnerIT {
         val logs = mutableListOf<String>()
         val listLogger = StepLogger { logs.add(it) }
 
-        dockerRunner.runJobStepInContainer(image, listLogger, script, listOf())
+        dockerExecutor.runJobStepInContainer(image, listLogger, script, listOf())
         assertThat(logs).isEqualTo(listOf("hello world\n"))
     }
 
@@ -60,7 +60,7 @@ class DockerRunnerIT {
         val logs = mutableListOf<String>()
         val listLogger = StepLogger { logs.add(it) }
 
-        dockerRunner.runJobStepInContainer(image, listLogger, script, listOf("AWS_ACCESS_KEY_ID=SOME_ACCESS_KEY"))
+        dockerExecutor.runJobStepInContainer(image, listLogger, script, listOf("AWS_ACCESS_KEY_ID=SOME_ACCESS_KEY"))
 
         assertThat(logs).isEqualTo(listOf("SOME_ACCESS_KEY\n"))
     }
@@ -72,7 +72,7 @@ class DockerRunnerIT {
         val logs = mutableListOf<String>()
         val listLogger = StepLogger { logs.add(it) }
 
-        dockerRunner.runJobStepInContainer(image, listLogger, script, listOf())
+        dockerExecutor.runJobStepInContainer(image, listLogger, script, listOf())
 
         assertThat(logs).isEqualTo(listOf("true\n"));
     }

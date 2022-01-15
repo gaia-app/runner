@@ -24,14 +24,14 @@ import java.util.concurrent.TimeUnit;
  * Service to run docker container
  */
 @Service
-public class DockerRunner {
+public class DockerExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DockerRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DockerExecutor.class);
 
     private DockerClient dockerClient;
 
     @Autowired
-    public DockerRunner(DockerClient dockerClient) {
+    public DockerExecutor(DockerClient dockerClient) {
         this.dockerClient = dockerClient;
     }
 
