@@ -12,6 +12,7 @@ import io.gaia_app.runner.StepLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  * Service to run docker container
  */
 @Service
+@ConditionalOnProperty(name="gaia.runner.executor", havingValue = "docker")
 public class DockerExecutor implements Executor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DockerExecutor.class);

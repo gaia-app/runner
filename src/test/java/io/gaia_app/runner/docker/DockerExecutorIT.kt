@@ -11,7 +11,9 @@ import org.springframework.test.context.TestPropertySource
 
 @SpringBootTest(classes = [DockerExecutor::class, DockerJavaClientConfig::class, DockerConfigurationProperties::class])
 @EnableConfigurationProperties
-@TestPropertySource(properties = ["gaia.dockerDaemonUrl=unix:///var/run/docker.sock"])
+@TestPropertySource(properties = [
+    "gaia.runner.executor=docker",
+])
 class DockerExecutorIT {
 
     @Autowired

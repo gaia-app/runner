@@ -6,6 +6,7 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.DockerClientImpl;
 import com.github.dockerjava.okhttp.OkDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +16,7 @@ import java.net.URI;
  * Configuration of the docker transport
  */
 @Configuration
+@ConditionalOnProperty(name="gaia.runner.executor", havingValue = "docker")
 public class DockerJavaClientConfig {
 
     private final DockerConfigurationProperties configurationProperties;
@@ -51,6 +53,5 @@ public class DockerJavaClientConfig {
                 .dockerHost(URI.create(configurationProperties.getDaemonUrl()))
                 .build();
     }
-
 
 }

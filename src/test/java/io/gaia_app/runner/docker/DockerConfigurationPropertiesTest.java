@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {RunnerConfiguration.class, RunnerConfigurationProperties.class, DockerConfigurationProperties.class})
 @TestPropertySource(properties = {
+        "gaia.runner.executor=docker",
         "gaia.runner.docker.daemon-url=tcp://localhost:2375",
         "gaia.runner.api.password=random-password",
 })

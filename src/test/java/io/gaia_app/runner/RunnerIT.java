@@ -27,6 +27,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
         "gaia.url=https://gaia-app.io",
         "gaia.runner.api.username=gaia-runner",
         "gaia.runner.api.password=gaia-runner-password",
+        "gaia.runner.executor=docker",
 })
 class RunnerIT {
 
