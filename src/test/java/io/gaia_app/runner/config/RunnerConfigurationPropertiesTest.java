@@ -7,7 +7,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = {RunnerConfiguration.class, RunnerConfigurationProperties.class})
 @TestPropertySource(properties = {
         "gaia.runner.concurrency=1",
         "gaia.runner.api.username=my-gaia-api-username",
