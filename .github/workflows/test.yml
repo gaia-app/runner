@@ -15,6 +15,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
+      - name: Start Minikube
+        run: minikube start
+      - name: Create test namespace
+        run: kubectl create ns gaia-runner
       - name: Run Maven tests
         run: mvn --batch-mode org.jacoco:jacoco-maven-plugin:prepare-agent verify org.jacoco:jacoco-maven-plugin:report sonar:sonar
         env:
