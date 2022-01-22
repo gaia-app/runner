@@ -8,6 +8,7 @@ import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Volume;
 import io.gaia_app.runner.Executor;
+import io.gaia_app.runner.RunnerStep;
 import io.gaia_app.runner.StepLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,7 +39,11 @@ public class DockerExecutor implements Executor {
     }
 
     @Override
-    public int executeJobStep(String image, StepLogger logger, String script, List<String> jobEnv) {
+    public int executeJobStep(RunnerStep step, StepLogger logger) {
+        var image = step.getImage();
+        var script = step.getScript();
+        var jobEnv = step.getEnv();
+
         try {
             var env = new ArrayList<String>();
             env.add("TF_IN_AUTOMATION=true");

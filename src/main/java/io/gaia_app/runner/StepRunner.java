@@ -29,9 +29,6 @@ public class StepRunner {
     @Async
     public void runStep(RunnerStep runnerStep) {
         var stepId = runnerStep.getId();
-        var image = runnerStep.getImage();
-        var script = runnerStep.getScript();
-        var env = runnerStep.getEnv();
 
         // tell gaia that the job starts
         this.restTemplate.put(gaiaUrl+ API_RUNNER_STEPS +stepId+"/start", null);
@@ -41,7 +38,7 @@ public class StepRunner {
         // configure a logger to ship logs back to gaia
         StepLogger logger = log -> this.restTemplate.put(gaiaUrl+API_RUNNER_STEPS+stepId+"/logs", log);
 
-        var result = executor.executeJobStep(image, logger, script, env);
+        var result = executor.executeJobStep(runnerStep, logger);
 
         LOG.info("Finished step {} execution with result code {}.", stepId, result);
         LOG.info("Sending result.");

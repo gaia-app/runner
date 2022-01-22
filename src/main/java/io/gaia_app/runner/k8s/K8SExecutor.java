@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gaia_app.runner.Executor;
+import io.gaia_app.runner.RunnerStep;
 import io.gaia_app.runner.StepLogger;
 import io.kubernetes.client.Attach;
 import io.kubernetes.client.PodLogs;
@@ -39,9 +40,13 @@ public class K8SExecutor implements Executor {
     }
 
     @Override
-    public int executeJobStep(String image, StepLogger logger, String script, List<String> jobEnv) {
+    public int executeJobStep(RunnerStep step, StepLogger logger) {
+        var image = step.getImage();
+        var script = step.getScript();
+        var jobEnv = step.getEnv();
+
         var namespace = properties.getNamespace();
-        var podName = "gaia-job-" + UUID.randomUUID();
+        var podName = "gaia-job-" + step.getId();
 
         var env = new ArrayList<String>();
         env.add("TF_IN_AUTOMATION=true");
