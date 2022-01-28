@@ -54,14 +54,14 @@ class K8SExecutorIT {
 
     @Test
     fun `runContainerForJob() should feed step with container logs`() {
-        val script = "echo 'hello world'; exit 0;"
+        val script = "echo 'hello world'; echo 'hello again'; exit 0;"
         val step = RunnerStep(UUID.randomUUID().toString(), image, script, listOf())
 
         val logs = mutableListOf<String>()
         val listLogger = StepLogger { logs.add(it) }
 
         k8sExecutor.executeJobStep(step, listLogger)
-        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("hello world"))
+        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("hello world\n","hello again\n"))
     }
 
     @Test
@@ -74,7 +74,7 @@ class K8SExecutorIT {
 
         k8sExecutor.executeJobStep(step, listLogger)
 
-        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("SOME_ACCESS_KEY"))
+        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("SOME_ACCESS_KEY\n"))
     }
 
     @Test
@@ -87,6 +87,6 @@ class K8SExecutorIT {
 
         k8sExecutor.executeJobStep(step, listLogger)
 
-        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("true"));
+        org.assertj.core.api.Assertions.assertThat(logs).isEqualTo(listOf("true\n"));
     }
 }

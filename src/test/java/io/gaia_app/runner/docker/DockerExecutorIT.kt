@@ -51,14 +51,14 @@ class DockerExecutorIT {
 
     @Test
     fun `runContainerForJob() should feed step with container logs`() {
-        val script = "echo 'hello world'; exit 0;"
+        val script = "echo 'hello world'; echo 'hello again'; exit 0;"
         val step = RunnerStep(UUID.randomUUID().toString(), image, script, listOf())
 
         val logs = mutableListOf<String>()
         val listLogger = StepLogger { logs.add(it) }
 
         dockerExecutor.executeJobStep(step, listLogger)
-        assertThat(logs).isEqualTo(listOf("hello world\n"))
+        assertThat(logs).isEqualTo(listOf("hello world\nhello again\n"))
     }
 
     @Test

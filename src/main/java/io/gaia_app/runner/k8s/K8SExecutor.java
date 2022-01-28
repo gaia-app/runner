@@ -107,7 +107,7 @@ public class K8SExecutor implements Executor {
             // copy logs (this is done in a sync way, maybe do that in a separate thread?
             try (var stdout = new PodLogs().streamNamespacedPodLog(pod)) {
                 var logsReader = new BufferedReader(new InputStreamReader(stdout));
-                logsReader.lines().forEach(logger::log);
+                logsReader.lines().forEach(it -> logger.log(it+"\n"));
             }
 
         } catch (ApiException e) {
