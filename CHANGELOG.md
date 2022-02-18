@@ -1,5 +1,29 @@
 # Changelog
 
+<a name="2.3.0"></a>
+## 2.3.0 (2022-02-18)
+
+### Added
+
+- ✨ : read in-cluster namespace configuration [[de2a2ca](https://github.com/gaia-app/runner/commit/de2a2ca1c61953e252a25c6514b9239d484a5ef7)]
+- 🔊 : add &#x27;\n&#x27; to the end of each log line [[ea3daae](https://github.com/gaia-app/runner/commit/ea3daae6886275d0f789f3c282eae0988c9deeda)]
+- ✨ : add Kubernetes executor [[daa8f6b](https://github.com/gaia-app/runner/commit/daa8f6b0fccb00c1dc30974bacfd04506061ca48)]
+- ✨ : add Executor type configuration [[8395170](https://github.com/gaia-app/runner/commit/839517006386312f8dc31e1a3c3ec22e0f23009c)]
+- ✅ : do not load full spring for properties tests [[4447f3a](https://github.com/gaia-app/runner/commit/4447f3a5c62e0d4602a65df5148394c31ddeedf3)]
+
+### Changed
+
+- ♻️ : add the full RunnerStep to the executors [[0a648db](https://github.com/gaia-app/runner/commit/0a648db7d33f4ac9b42fc417ffbd2d5cce3b880e)]
+- ♻️ : extract Executor interface [[9cc1c83](https://github.com/gaia-app/runner/commit/9cc1c8343a5cf7c452a6fd8706aedd950e24451a)]
+- 🚚 : rename DockerRunner to DockerExecutor [[6570d34](https://github.com/gaia-app/runner/commit/6570d344e8bcdb6f02fd09944d0e68ffbdd3de27)]
+- ⬆️ : bump spring-boot-starter-parent to 2.6.3 [[0044326](https://github.com/gaia-app/runner/commit/004432696e820ce3afaac210c4492a3b6d33b7e8)]
+- ⬆️ : upgrade to java 17 [[0a862df](https://github.com/gaia-app/runner/commit/0a862df7824d3415f1216f6eafeaf63473f03e26)]
+
+### Miscellaneous
+
+-  👷 : add minikube start in github workflow [[fa18f45](https://github.com/gaia-app/runner/commit/fa18f451ae476bcb857f23abb6e7eddaf2c1904f)]
+-  👷 : add batch-mode for maven builds [[4175c5e](https://github.com/gaia-app/runner/commit/4175c5e0670beb0299bff77690d9621420abfe83)]
+
 <a name="2.2.0"></a>
 ## 2.2.0 (2021-10-01)
 
