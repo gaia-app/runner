@@ -7,35 +7,43 @@ import com.github.dockerjava.api.model.Bind;
 import com.github.dockerjava.api.model.Frame;
 import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Volume;
+import io.gaia_app.runner.Executor;
+import io.gaia_app.runner.RunnerStep;
 import io.gaia_app.runner.StepLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Service to run docker container
  */
 @Service
-public class DockerRunner {
+@ConditionalOnProperty(name="gaia.runner.executor", havingValue = "docker")
+public class DockerExecutor implements Executor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DockerRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DockerExecutor.class);
 
     private DockerClient dockerClient;
 
     @Autowired
-    public DockerRunner(DockerClient dockerClient) {
+    public DockerExecutor(DockerClient dockerClient) {
         this.dockerClient = dockerClient;
     }
 
-    public int runJobStepInContainer(String image, StepLogger logger, String script, List<String> jobEnv) {
+    @Override
+    public int executeJobStep(RunnerStep step, StepLogger logger) {
+        var image = step.getImage();
+        var script = step.getScript();
+        var jobEnv = step.getEnv();
+
         try {
             var env = new ArrayList<String>();
             env.add("TF_IN_AUTOMATION=true");

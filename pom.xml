@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.5</version>
+        <version>2.6.3</version>
         <relativePath/>
     </parent>
 
@@ -41,13 +41,15 @@
 
     <properties>
         <docker-java.version>3.2.7</docker-java.version>
-        <jacoco.version>0.8.6</jacoco.version>
-        <java.version>11</java.version>
-        <kotlin.version>1.4.21</kotlin.version>
+        <jacoco.version>0.8.7</jacoco.version>
+        <java.version>17</java.version>
+        <kotlin.version>1.6.10</kotlin.version>
 
         <sonar.projectKey>gaia-app:runner</sonar.projectKey>
         <sonar.organization>gaia-app</sonar.organization>
         <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+        <kubernetes-client-java.version>14.0.0</kubernetes-client-java.version>
+        <testcontainers.version>1.16.3</testcontainers.version>
     </properties>
 
     <dependencies>
@@ -82,6 +84,19 @@
             <groupId>com.github.docker-java</groupId>
             <artifactId>docker-java-transport-okhttp</artifactId>
             <version>${docker-java.version}</version>
+        </dependency>
+
+        <!-- kubernetes client -->
+        <dependency>
+            <groupId>io.kubernetes</groupId>
+            <artifactId>client-java</artifactId>
+            <version>${kubernetes-client-java.version}</version>
+        </dependency>
+        <!-- kubernetes fluent API -->
+        <dependency>
+            <groupId>io.kubernetes</groupId>
+            <artifactId>client-java-extended</artifactId>
+            <version>${kubernetes-client-java.version}</version>
         </dependency>
 
         <!-- jackson support for kotlin -->

@@ -1,5 +1,6 @@
 package io.gaia_app.runner.config;
 
+import io.gaia_app.runner.ExecutorType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,11 +8,12 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(classes = {RunnerConfiguration.class, RunnerConfigurationProperties.class})
 @TestPropertySource(properties = {
         "gaia.runner.concurrency=1",
         "gaia.runner.api.username=my-gaia-api-username",
-        "gaia.runner.api.password=my-gaia-api-password"
+        "gaia.runner.api.password=my-gaia-api-password",
+        "gaia.runner.executor=docker"
 })
 class RunnerConfigurationPropertiesTest {
 
@@ -30,6 +32,11 @@ class RunnerConfigurationPropertiesTest {
     void testRunnerApiProperties(){
         assertThat(runnerApiProperties.getUsername()).isEqualTo("my-gaia-api-username");
         assertThat(runnerApiProperties.getPassword()).isEqualTo("my-gaia-api-password");
+    }
+
+    @Test
+    void testExecutorProperties(){
+        assertThat(properties.getExecutor()).isEqualTo(ExecutorType.DOCKER);
     }
 
 }
