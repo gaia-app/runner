@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.3.1"></a>
+## 2.3.1 (2022-03-12)
+
+### Fixed
+
+- 🐛 : declare docker as the default executor [[8060928](https://github.com/gaia-app/runner/commit/8060928d323319cd808319125c0944020f7c76ee)]
+
+
 <a name="2.3.0"></a>
 ## 2.3.0 (2022-02-18)
 
