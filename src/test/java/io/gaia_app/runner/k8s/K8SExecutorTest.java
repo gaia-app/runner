@@ -51,14 +51,14 @@ class K8SExecutorTest {
         @Test
         void shouldDoNothing_whenPodCantBeCreated() throws ApiException {
             var k8sException = new ApiException("Could not create pod");
-            doThrow(k8sException).when(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull());
+            doThrow(k8sException).when(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull(), isNull());
 
             var step = new RunnerStep("1234", "terraform:latest", "echo 'Hello'", List.of());
             var result = executor.executeJobStep(step, log -> {});
 
             assertThat(result).isEqualTo(99);
 
-            verify(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull());
+            verify(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull(), isNull());
 
             verifyNoMoreInteractions(k8sApi);
         }
@@ -75,7 +75,7 @@ class K8SExecutorTest {
 
             assertThat(result).isEqualTo(99);
 
-            verify(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull());
+            verify(k8sApi).createNamespacedPod(anyString(), any(V1Pod.class), isNull(), isNull(), isNull(), isNull());
             verify(k8sApi).deleteNamespacedPod(anyString(), anyString(), isNull(), isNull(), isNull(), isNull(), isNull(), isNull());
             verifyNoMoreInteractions(k8sApi);
         }

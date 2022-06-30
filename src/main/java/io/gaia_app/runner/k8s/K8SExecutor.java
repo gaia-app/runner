@@ -78,7 +78,7 @@ public class K8SExecutor implements Executor {
 
         LOGGER.log(System.Logger.Level.INFO, "Creating pod {0}", podName);
         try {
-            coreV1Api.createNamespacedPod(namespace, pod, null, null, null);
+            coreV1Api.createNamespacedPod(namespace, pod, null, null, null, null);
         } catch (ApiException e) {
             LOGGER.log(System.Logger.Level.ERROR, "Unable to create Kubernetes pod, Kubernetes API response : {0}", getApiExceptionResponseBodyMessage(e));
             return 99;
