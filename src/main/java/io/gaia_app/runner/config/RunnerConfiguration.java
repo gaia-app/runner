@@ -21,8 +21,7 @@ public class RunnerConfiguration {
     @Bean
     public Executor taskExecutor(RunnerConfigurationProperties properties) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(1);
-        executor.setMaxPoolSize(properties.getConcurrency());
+        executor.setCorePoolSize(properties.getConcurrency());
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("gaia-runner-");
         executor.initialize();
