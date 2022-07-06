@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="2.3.2"></a>
+## 2.3.2 (2022-07-06)
+
+### Changed
+
+- 👽 : add new parameter to createNamespacedPod [[fe28c95](https://github.com/gaia-app/runner/commit/fe28c950280f8fe7f9a53b8e84a8d0e396bd7857)]
+
+### Fixed
+
+- 🐛 : fixes ThreadPoolTaskExecutor configuration [[b8fd13b](https://github.com/gaia-app/runner/commit/b8fd13b247d0989723d102ede0d4fc2bf71eb5b2)]
+
+### Miscellaneous
+
+-  Bump jacoco-maven-plugin from 0.8.7 to 0.8.8 [[9befd71](https://github.com/gaia-app/runner/commit/9befd7108b98cdb1765f98de6eeb041ce93847fa)]
+-  Bump docker-java.version from 3.2.7 to 3.2.13 [[251d6b1](https://github.com/gaia-app/runner/commit/251d6b157908ef28e600f89eee9aab24c5ec6dbc)]
+-  Bump kotlin.version from 1.6.10 to 1.7.0 [[9edf4cc](https://github.com/gaia-app/runner/commit/9edf4cc4c7380ad55726f5361c1bdf70c3be8945)]
+-  👷 : only run tests on pull_requests [[3c39441](https://github.com/gaia-app/runner/commit/3c39441b577a0c36adbb591e8079d29710420eeb)]
+-  👷 : do not run sonar for dependabot [[d839ece](https://github.com/gaia-app/runner/commit/d839ece61c204159e5ac27f4dc21a6fc45e78676)]
+-  Bump kubernetes-client-java.version from 14.0.0 to 16.0.0 [[3590304](https://github.com/gaia-app/runner/commit/35903046914db5e0cb4e074d032b069284ce75cb)]
+
+
 <a name="2.3.1"></a>
 ## 2.3.1 (2022-03-12)
 
