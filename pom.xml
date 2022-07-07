@@ -43,7 +43,7 @@
         <docker-java.version>3.2.13</docker-java.version>
         <jacoco.version>0.8.8</jacoco.version>
         <java.version>17</java.version>
-        <kotlin.version>1.7.0</kotlin.version>
+        <kotlin.version>1.7.10</kotlin.version>
 
         <sonar.projectKey>gaia-app:runner</sonar.projectKey>
         <sonar.organization>gaia-app</sonar.organization>
